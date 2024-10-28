@@ -37,5 +37,12 @@ public record LimitationPayload(ServerLimitation limitation) implements CustomPa
     }
 
     public static void handleServer(LimitationPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            var player = context.player();
+            Parkourability parkourability = Parkourability.get(player);
+            if (parkourability == null) return;
+            parkourability.getActionInfo().setServerLimitation(payload.limitation());
+            parkourability.getActionInfo().updateStaminaType();
+        });
     }
 }

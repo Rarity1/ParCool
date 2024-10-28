@@ -12,6 +12,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Checkbox;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Collections;
@@ -101,7 +102,7 @@ public class SettingActionLimitationScreen extends ParCoolSettingScreen {
         for (int i = 0; i < actionList.length; i++) {
             actionList[i].setter.accept(actionButtons[i].selected());
         }
-        LocalPlayer player = Minecraft.getInstance().player;
+        Player player = Minecraft.getInstance().player;
         if (player == null) return;
         Parkourability parkourability = Parkourability.get(player);
         if (parkourability == null) return;

@@ -2,15 +2,20 @@ package com.alrex.parcool.common.network;
 
 import com.alrex.parcool.common.network.payload.*;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler;
+import net.neoforged.neoforge.network.registration.HandlerThread;
 
+
+@EventBusSubscriber(bus = Bus.MOD, modid = "parcool")
 public class NetworkRegistries {
     private static final String PROTOCOL_VERSION = "3.3.0.0";
 
     @SubscribeEvent
     public static void onRegisterPayload(RegisterPayloadHandlersEvent event) {
-        var r = event.registrar(PROTOCOL_VERSION);
+        var r = event.registrar(PROTOCOL_VERSION).executesOn(HandlerThread.NETWORK);
         r.playBidirectional(
                 StartBreakfallEventPayload.TYPE,
                 StartBreakfallEventPayload.CODEC,

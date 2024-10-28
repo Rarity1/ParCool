@@ -11,6 +11,7 @@ import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 
 public class LightStaminaHUD {
@@ -27,7 +28,7 @@ public class LightStaminaHUD {
     private boolean showStatus = false;
 	private int oldValue = 0;
 
-	public void onTick(ClientTickEvent.Post event, LocalPlayer player) {
+	public void onTick(ClientTickEvent.Post event, Player player) {
 		LocalStamina stamina = LocalStamina.get();
         Parkourability parkourability = Parkourability.get(player);
         if (stamina == null || parkourability == null) return;
@@ -72,7 +73,7 @@ public class LightStaminaHUD {
 	}
 
 	public void render(GuiGraphics graphics, DeltaTracker partialTick) {
-		LocalPlayer player = Minecraft.getInstance().player;
+		Player player = Minecraft.getInstance().player;
 		if (player == null || player.isCreative()) return;
 
 		LocalStamina stamina = LocalStamina.get();

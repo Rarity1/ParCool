@@ -1,6 +1,5 @@
 package com.alrex.parcool.common.action;
 
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -104,12 +103,12 @@ public abstract class Action {
 	}
 
     @OnlyIn(Dist.CLIENT)
-    public boolean wantsToShowStatusBar(LocalPlayer player, Parkourability parkourability) {
+    public boolean wantsToShowStatusBar(Player player, Parkourability parkourability) {
         return false;
     }
 
     @OnlyIn(Dist.CLIENT)
-    public float getStatusValue(LocalPlayer player, Parkourability parkourability) {
+    public float getStatusValue(Player player, Parkourability parkourability) {
         return 0;
     }
 

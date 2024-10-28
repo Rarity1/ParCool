@@ -5,7 +5,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 
+@EventBusSubscriber(modid = "parcool")
 public class PlayerCloneHandler {
 	@SubscribeEvent
 	public static void onClone(PlayerEvent.Clone event) {

@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 import java.nio.ByteBuffer;
 
 public class BreakfallReady extends Action {
-    public void startBreakfall(LocalPlayer player, Parkourability parkourability, boolean justTimed) {
+    public void startBreakfall(Player player, Parkourability parkourability, boolean justTimed) {
 		setDoing(false);
         boolean playSound = false;
 		if (justTimed && ParCoolConfig.Client.Booleans.EnableJustTimeEffectOfBreakfall.get()) {

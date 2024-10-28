@@ -7,11 +7,12 @@ import com.alrex.parcool.common.info.ClientSetting;
 import com.alrex.parcool.common.network.payload.ClientInformationPayload;
 import com.alrex.parcool.config.ParCoolConfig;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
@@ -23,7 +24,7 @@ public class EnableOrDisableParCoolHandler {
         if (KeyBindings.getKeyBindEnable().consumeClick()) {
             boolean currentStatus = !ParCoolConfig.Client.Booleans.ParCoolIsActive.get();
             ParCoolConfig.Client.Booleans.ParCoolIsActive.set(currentStatus);
-            LocalPlayer player = Minecraft.getInstance().player;
+            Player player = Minecraft.getInstance().player;
             if (player == null) return;
             Parkourability parkourability = Parkourability.get(player);
             if (parkourability == null) return;

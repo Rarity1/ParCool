@@ -91,7 +91,7 @@ public class Animation {
         animator.rotatePost(player, parkourability, rotator);
 	}
 
-    public void cameraSetup(ViewportEvent.ComputeCameraAngles event, LocalPlayer player, Parkourability parkourability) {
+    public void cameraSetup(ViewportEvent.ComputeCameraAngles event, Player player, Parkourability parkourability) {
 		if (animator == null) return;
 		if (player.isLocalPlayer()
 				&& Minecraft.getInstance().options.getCameraType().isFirstPerson()

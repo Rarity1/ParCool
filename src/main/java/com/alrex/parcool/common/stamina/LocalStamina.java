@@ -2,44 +2,48 @@ package com.alrex.parcool.common.stamina;
 
 import com.alrex.parcool.common.attachment.Attachments;
 import com.alrex.parcool.common.stamina.handlers.InfiniteStaminaHandler;
-import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 
 import javax.annotation.Nullable;
 
-@OnlyIn(Dist.CLIENT)
+@EventBusSubscriber(value = Dist.CLIENT, modid = "parcool")
 public class LocalStamina {
+    
     @Nullable
     private static LocalStamina instance = null;
-
-    @Nullable
-    public static LocalStamina get() {
-        return instance;
-    }
-
-    public static void setup(LocalPlayer player) {
-        instance = new LocalStamina(player);
-    }
-
-    public static void unload() {
+    
+    @SubscribeEvent
+    public static void onLocalPlayerLogout(ClientPlayerNetworkEvent.LoggingOut event) {
         instance = null;
     }
 
+    @SubscribeEvent
+    public static void onLocalPlayerLogin(ClientPlayerNetworkEvent.LoggingIn event) {
+        instance = new LocalStamina(event.getPlayer());
+    }
 
-    private LocalStamina(LocalPlayer player) {
+    public static LocalStamina get(){
+        return instance;
+    }
+
+    public LocalStamina(Player player) {
         this.player = player;
     }
 
-    private final LocalPlayer player;
+    private final Player player;
     @Nullable
     private StaminaType currentType = null;
     @Nullable
     private IParCoolStaminaHandler handler = null;
-    private int oldValue;
-    private int value;
+
 
     public boolean isAvailable() {
+
         return handler != null && currentType != null;
     }
 

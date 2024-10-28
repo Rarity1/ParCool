@@ -6,8 +6,10 @@ import com.alrex.parcool.common.action.impl.Dive;
 import com.alrex.parcool.common.action.impl.Flipping;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingEvent;
 
+@EventBusSubscriber(modid = "parcool")
 public class PlayerJumpHandler {
 	@SubscribeEvent
 	public static void onJump(LivingEvent.LivingJumpEvent event) {

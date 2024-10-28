@@ -9,9 +9,11 @@ import com.alrex.parcool.common.network.payload.StartBreakfallEventPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
+@EventBusSubscriber(modid = "parcool")
 public class PlayerFallHandler {
 	@SubscribeEvent
 	public static void onFall(LivingFallEvent event) {

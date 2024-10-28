@@ -13,6 +13,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
@@ -43,11 +45,10 @@ public record ClientInformationPayload(UUID playerID, boolean requestLimitation,
     }
 
     public static void handleClient(ClientInformationPayload payload, IPayloadContext context) {
+        if(FMLEnvironment.dist != Dist.CLIENT) return;
         context.enqueueWork(() -> {
-            Level world = Minecraft.getInstance().level;
-            if (world == null) return;
-            var player = world.getPlayerByUUID(payload.playerID());
-            if (player == null || player.isLocalPlayer()) return;
+            Player player = context.player();
+            if (player == null) return;
             Parkourability parkourability = Parkourability.get(player);
             if (parkourability == null) return;
             parkourability.getActionInfo().setClientSetting(payload.information());
@@ -57,8 +58,8 @@ public record ClientInformationPayload(UUID playerID, boolean requestLimitation,
     public static void handleServer(ClientInformationPayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
             Player player = context.player();
+            if (player == null) return;
             PacketDistributor.sendToAllPlayers(payload);
-
             Parkourability parkourability = Parkourability.get(player);
             if (parkourability == null) return;
             if (player instanceof ServerPlayer serverPlayer && payload.requestLimitation()) {

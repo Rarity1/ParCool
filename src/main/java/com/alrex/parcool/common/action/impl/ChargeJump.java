@@ -131,12 +131,12 @@ public class ChargeJump extends Action {
     }
 
     @Override
-    public boolean wantsToShowStatusBar(LocalPlayer player, Parkourability parkourability) {
+    public boolean wantsToShowStatusBar(Player player, Parkourability parkourability) {
         return isCharging();
     }
 
     @Override
-    public float getStatusValue(LocalPlayer player, Parkourability parkourability) {
+    public float getStatusValue(Player player, Parkourability parkourability) {
         return ((float) getChargingTick()) / JUMP_CHARGE_TICK;
     }
 

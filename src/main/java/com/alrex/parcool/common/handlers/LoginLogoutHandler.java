@@ -6,13 +6,20 @@ import com.alrex.parcool.common.stamina.LocalStamina;
 import com.alrex.parcool.server.limitation.Limitations;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 import java.util.UUID;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
 
+@EventBusSubscriber(modid = "parcool")
 public class LoginLogoutHandler {
+
     @SubscribeEvent
     public static void onLogoutInServer(PlayerEvent.PlayerLoggedOutEvent event) {
         Player player = event.getEntity();
@@ -30,15 +37,7 @@ public class LoginLogoutHandler {
         Parkourability.Registry.setupInServer(player.getUUID());
     }
 
-    @SubscribeEvent
-    public static void onLocalPlayerLogout(ClientPlayerNetworkEvent.LoggingOut event) {
-        LocalStamina.unload();
-    }
-
-    @SubscribeEvent
-    public static void onLocalPlayerLogin(ClientPlayerNetworkEvent.LoggingIn event) {
-        LocalStamina.setup(event.getPlayer());
-    }
+    
 
     public static void onLogoutInClient(UUID playerID) {
         Parkourability.Registry.unloadInClient(playerID);

@@ -11,7 +11,6 @@ import com.alrex.parcool.common.action.StaminaConsumeTiming;
 import com.alrex.parcool.common.info.ActionInfo;
 import com.alrex.parcool.config.ParCoolConfig;
 import com.alrex.parcool.utilities.VectorUtil;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
@@ -180,12 +179,12 @@ public class Dodge extends Action {
 	}
 
 	@Override
-	public boolean wantsToShowStatusBar(LocalPlayer player, Parkourability parkourability) {
+	public boolean wantsToShowStatusBar(Player player, Parkourability parkourability) {
 		return coolTime > 0 || isInSuccessiveCoolDown(parkourability.getActionInfo());
 	}
 
 	@Override
-	public float getStatusValue(LocalPlayer player, Parkourability parkourability) {
+	public float getStatusValue(Player player, Parkourability parkourability) {
 		ActionInfo info = parkourability.getActionInfo();
 		int maxCoolTime = getMaxCoolTime(info);
 		int successiveMaxCoolTime = getSuccessiveCoolTime(info);

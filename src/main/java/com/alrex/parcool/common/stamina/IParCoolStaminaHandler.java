@@ -1,23 +1,18 @@
 package com.alrex.parcool.common.stamina;
 
 import com.alrex.parcool.common.attachment.stamina.ReadonlyStamina;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 public interface IParCoolStaminaHandler {
-    @OnlyIn(Dist.CLIENT)
-    public ReadonlyStamina initializeStamina(LocalPlayer player, ReadonlyStamina current);
+    public ReadonlyStamina initializeStamina(Player player, ReadonlyStamina current);
 
-    @OnlyIn(Dist.CLIENT)
-    public ReadonlyStamina consume(LocalPlayer player, ReadonlyStamina current, int value);
+    public ReadonlyStamina consume(Player player, ReadonlyStamina current, int value);
 
-    @OnlyIn(Dist.CLIENT)
-    public ReadonlyStamina recover(LocalPlayer player, ReadonlyStamina current, int value);
+    public ReadonlyStamina recover(Player player, ReadonlyStamina current, int value);
 
-    @OnlyIn(Dist.CLIENT)
-    public default ReadonlyStamina onTick(LocalPlayer player, ReadonlyStamina current) {
+    public default ReadonlyStamina onTick(Player player, ReadonlyStamina current) {
         return current;
     }
 

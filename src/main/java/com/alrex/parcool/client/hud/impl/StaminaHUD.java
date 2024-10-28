@@ -14,6 +14,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
@@ -33,7 +34,7 @@ public class StaminaHUD {
     private float oldStatusValue = 0f;
     private boolean showStatus = false;
 
-	public void onTick(ClientTickEvent.Post event, LocalPlayer player) {
+	public void onTick(ClientTickEvent.Post event, Player player) {
         Parkourability parkourability = Parkourability.get(player);
         if (parkourability == null) return;
 		if (++renderGageTick >= 5) {
@@ -63,7 +64,7 @@ public class StaminaHUD {
 	}
 
 	public void render(GuiGraphics graphics, DeltaTracker partialTick) {
-		LocalPlayer player = Minecraft.getInstance().player;
+		Player player = Minecraft.getInstance().player;
 		if (player == null) return;
 		if (player.isCreative()) return;
 

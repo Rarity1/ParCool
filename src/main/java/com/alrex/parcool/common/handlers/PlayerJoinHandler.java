@@ -9,7 +9,9 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.fml.common.EventBusSubscriber;
 
+@EventBusSubscriber(modid = "parcool")
 public class PlayerJoinHandler {
     @SubscribeEvent
     public static void onPlayerJoin(EntityJoinLevelEvent event) {

@@ -5,9 +5,9 @@ import com.alrex.parcool.common.action.Parkourability;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
@@ -32,8 +32,7 @@ public record ReadonlyStamina(boolean isExhausted, int value, int max) {
         return new ReadonlyStamina(isExhausted(), newValue, max());
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public ReadonlyStamina updateMax(LocalPlayer player) {
+    public ReadonlyStamina updateMax(Player player) {
         var attr = player.getAttribute(Attributes.MAX_STAMINA);
         if (attr == null) return this;
         var parkourability = Parkourability.get(player);

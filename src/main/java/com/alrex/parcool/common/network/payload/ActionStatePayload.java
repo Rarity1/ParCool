@@ -60,10 +60,8 @@ public record ActionStatePayload(UUID playerID, List<Entry> states) implements C
     public static void handleClient(ActionStatePayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
             Player player;
-            Level world = Minecraft.getInstance().level;
-            if (world == null) return;
-            player = world.getPlayerByUUID(payload.playerID());
-            if (player == null || player.isLocalPlayer()) return;
+            player = context.player();
+            if (player == null) return;
 
             Parkourability parkourability = Parkourability.get(player);
             if (parkourability == null) return;

@@ -12,23 +12,23 @@ public class HungerStaminaHandler implements IParCoolStaminaHandler {
     private int consumed = 0;
 
     @Override
-    public ReadonlyStamina initializeStamina(LocalPlayer player, ReadonlyStamina current) {
+    public ReadonlyStamina initializeStamina(Player player, ReadonlyStamina current) {
         return new ReadonlyStamina(false, player.getFoodData().getFoodLevel(), 20);
     }
 
     @Override
-    public ReadonlyStamina consume(LocalPlayer player, ReadonlyStamina current, int value) {
+    public ReadonlyStamina consume(Player player, ReadonlyStamina current, int value) {
         consumed += value;
         return current;
     }
 
     @Override
-    public ReadonlyStamina recover(LocalPlayer player, ReadonlyStamina current, int value) {
+    public ReadonlyStamina recover(Player player, ReadonlyStamina current, int value) {
         return current;
     }
 
     @Override
-    public ReadonlyStamina onTick(LocalPlayer player, ReadonlyStamina current) {
+    public ReadonlyStamina onTick(Player player, ReadonlyStamina current) {
         if (consumed > 0) {
             PacketDistributor.sendToServer(new StaminaProcessOnServerPayload(StaminaType.HUNGER, consumed));
             consumed = 0;

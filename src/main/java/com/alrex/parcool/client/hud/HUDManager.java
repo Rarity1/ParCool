@@ -1,11 +1,12 @@
 package com.alrex.parcool.client.hud;
 
 import com.alrex.parcool.client.hud.impl.StaminaHUDController;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class HUDManager {
@@ -16,9 +17,6 @@ public class HUDManager {
     public static HUDManager getInstance() {
         if (instance == null) instance = new HUDManager();
         return instance;
-    }
-
-    public void onSetup() {
     }
 
     public void registerHUD(RegisterGuiLayersEvent event) {

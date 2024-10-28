@@ -1,16 +1,13 @@
 package com.alrex.parcool.common.action;
 
-import com.alrex.parcool.api.Attributes;
 import com.alrex.parcool.api.unstable.action.ParCoolActionEvent;
 import com.alrex.parcool.client.animation.Animation;
 import com.alrex.parcool.common.attachment.Attachments;
-import com.alrex.parcool.common.attachment.stamina.ReadonlyStamina;
 import com.alrex.parcool.common.network.payload.ActionStatePayload;
 import com.alrex.parcool.common.network.payload.StaminaPayload;
 import com.alrex.parcool.common.stamina.LocalStamina;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -50,7 +47,7 @@ public class ActionProcessor {
 		Parkourability parkourability = Parkourability.get(player);
 		if (parkourability == null) return;
 		List<Action> actions = parkourability.getList();
-		boolean needSync = player.level().isClientSide() && player.isLocalPlayer();
+		boolean needSync = player.isLocalPlayer();
 		if (needSync) {
 			var stamina = LocalStamina.get();
 			if (stamina == null || !stamina.isAvailable()) return;
@@ -214,7 +211,7 @@ public class ActionProcessor {
 	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent
 	public void onViewRender(ViewportEvent.ComputeCameraAngles event) {
-        LocalPlayer player = Minecraft.getInstance().player;
+        Player player = Minecraft.getInstance().player;
 		if (player == null) return;
 		Parkourability parkourability = Parkourability.get(player);
 		if (parkourability == null) return;
