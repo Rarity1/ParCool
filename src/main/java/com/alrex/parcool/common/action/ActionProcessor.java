@@ -12,6 +12,7 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.event.RenderFrameEvent;
 import net.neoforged.neoforge.client.event.ViewportEvent;
 import net.neoforged.neoforge.common.NeoForge;
@@ -19,7 +20,6 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.nio.ByteBuffer;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class ActionProcessor {
 		Parkourability parkourability = Parkourability.get(player);
 		if (parkourability == null) return;
 		List<Action> actions = parkourability.getList();
-		boolean needSync = player.isLocalPlayer();
+		boolean needSync = FMLEnvironment.dist == Dist.CLIENT && player.isLocalPlayer();
 		if (needSync) {
 			var stamina = LocalStamina.get();
 			if (stamina == null || !stamina.isAvailable()) return;
@@ -71,7 +71,7 @@ public class ActionProcessor {
 			}
 
 			action.onTick(player, parkourability);
-			if (player.level().isClientSide()) {
+			if (FMLEnvironment.dist == Dist.CLIENT) {
 				action.onClientTick(player, parkourability);
 			} else {
 				action.onServerTick(player, parkourability);

@@ -5,8 +5,7 @@ import com.alrex.parcool.common.action.Parkourability;
 import com.alrex.parcool.common.attachment.stamina.ReadonlyStamina;
 import com.alrex.parcool.common.stamina.IParCoolStaminaHandler;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+
 
 
 public class ParCoolStaminaHandler implements IParCoolStaminaHandler {

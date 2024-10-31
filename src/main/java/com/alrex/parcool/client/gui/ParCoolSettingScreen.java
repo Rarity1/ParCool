@@ -14,7 +14,9 @@ import java.util.Collections;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
-
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+@OnlyIn(Dist.CLIENT)
 public abstract class ParCoolSettingScreen extends Screen {
     private final ScreenSet<?>[] screenList;
     protected int currentScreen = 0;

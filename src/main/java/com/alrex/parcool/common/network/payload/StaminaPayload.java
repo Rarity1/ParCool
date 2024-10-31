@@ -37,7 +37,7 @@ public record StaminaPayload(UUID playerID, ReadonlyStamina stamina) implements 
     public static void handleClient(StaminaPayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
             Player player = context.player().level().getPlayerByUUID(payload.playerID);
-            if (player == null || player.isLocalPlayer()) return;
+            if (player == null) return;
             player.setData(Attachments.STAMINA, payload.stamina);
         });
     }
@@ -45,7 +45,7 @@ public record StaminaPayload(UUID playerID, ReadonlyStamina stamina) implements 
     public static void handleServer(StaminaPayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
             Player player = context.player().level().getPlayerByUUID(payload.playerID);
-            if (player == null) return;
+            if (player == null || player.isLocalPlayer()) return;
             PacketDistributor.sendToAllPlayers(payload);
             player.setData(Attachments.STAMINA, payload.stamina);
         });

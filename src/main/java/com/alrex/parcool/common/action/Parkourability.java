@@ -3,8 +3,7 @@ package com.alrex.parcool.common.action;
 import com.alrex.parcool.common.info.ActionInfo;
 import com.alrex.parcool.common.info.ClientSetting;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.fml.loading.FMLEnvironment;
+
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -18,11 +17,12 @@ public class Parkourability {
 		private static final TreeMap<UUID, Parkourability> mapServer = new TreeMap<>();
 
 		@Nullable
-		private static Parkourability getClient(Player player) {
-			return mapClient.get(player.getUUID());
-		}
-		private static Parkourability getServer(Player player) {
-			return mapServer.get(player.getUUID());
+		private static Parkourability get(Player player) {
+			if(player.isLocalPlayer()){
+				return mapClient.get(player.getUUID());
+			}else{
+				return mapServer.get(player.getUUID());
+			}
 		}
 
 		public static void setupInClient(UUID id) {
@@ -43,11 +43,7 @@ public class Parkourability {
 	}
 	@Nullable
 	public static Parkourability get(Player player) {
-		if(FMLEnvironment.dist == Dist.CLIENT){
-			return Registry.getClient(player);
-		}else{
-			return Registry.getServer(player);
-		}
+		return Registry.get(player);
 	}
 
     private final ActionInfo info;

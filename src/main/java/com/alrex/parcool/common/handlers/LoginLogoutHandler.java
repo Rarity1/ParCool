@@ -14,11 +14,24 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 import java.util.UUID;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.fml.loading.FMLEnvironment;
+
 
 @EventBusSubscriber(modid = "parcool")
 public class LoginLogoutHandler {
+
+
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public static void onLocalPlayerLogout(ClientPlayerNetworkEvent.LoggingOut event) {
+        LocalStamina.unload();
+    }
+    
+    @OnlyIn(Dist.CLIENT)
+    @SubscribeEvent
+    public static void onLocalPlayerLogin(ClientPlayerNetworkEvent.LoggingIn event) {
+        LocalStamina.setup(event.getPlayer());
+    }
+
 
     @SubscribeEvent
     public static void onLogoutInServer(PlayerEvent.PlayerLoggedOutEvent event) {
@@ -38,12 +51,13 @@ public class LoginLogoutHandler {
     }
 
     
-
+    @OnlyIn(Dist.CLIENT)
     public static void onLogoutInClient(UUID playerID) {
         Parkourability.Registry.unloadInClient(playerID);
         Animation.Registry.unload(playerID);
     }
 
+    @OnlyIn(Dist.CLIENT)
     public static void onLoginInClient(UUID playerID) {
         Parkourability.Registry.setupInClient(playerID);
         Animation.Registry.setup(playerID);

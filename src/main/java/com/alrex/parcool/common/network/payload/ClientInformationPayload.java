@@ -14,6 +14,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -48,7 +49,7 @@ public record ClientInformationPayload(UUID playerID, boolean requestLimitation,
         if(FMLEnvironment.dist != Dist.CLIENT) return;
         context.enqueueWork(() -> {
             Player player = context.player();
-            if (player == null) return;
+            if (player == null || player.isLocalPlayer()) return;
             Parkourability parkourability = Parkourability.get(player);
             if (parkourability == null) return;
             parkourability.getActionInfo().setClientSetting(payload.information());
@@ -58,7 +59,6 @@ public record ClientInformationPayload(UUID playerID, boolean requestLimitation,
     public static void handleServer(ClientInformationPayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
             Player player = context.player();
-            if (player == null) return;
             PacketDistributor.sendToAllPlayers(payload);
             Parkourability parkourability = Parkourability.get(player);
             if (parkourability == null) return;

@@ -1,7 +1,9 @@
 package com.alrex.parcool.client.hud;
 
 import net.minecraft.util.Tuple;
-
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+@OnlyIn(Dist.CLIENT)
 public class Position {
 	public static final Position DEFAULT = new Position(Horizontal.Left, Vertical.Top, 0, 0);
 	public enum Horizontal {Left, Right}

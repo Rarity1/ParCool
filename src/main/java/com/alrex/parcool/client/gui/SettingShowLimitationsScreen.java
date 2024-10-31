@@ -7,7 +7,9 @@ import net.minecraft.network.chat.Component;
 
 import java.util.Arrays;
 import java.util.LinkedList;
-
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+@OnlyIn(Dist.CLIENT)
 public class SettingShowLimitationsScreen extends ParCoolSettingScreen {
     private final InfoSet[] infoList;
 

@@ -34,7 +34,7 @@ public class StaminaHUD {
     private float oldStatusValue = 0f;
     private boolean showStatus = false;
 
-	public void onTick(ClientTickEvent.Post event, Player player) {
+	public void onTick(ClientTickEvent.Post event, LocalPlayer player) {
         Parkourability parkourability = Parkourability.get(player);
         if (parkourability == null) return;
 		if (++renderGageTick >= 5) {
@@ -64,7 +64,7 @@ public class StaminaHUD {
 	}
 
 	public void render(GuiGraphics graphics, DeltaTracker partialTick) {
-		Player player = Minecraft.getInstance().player;
+		LocalPlayer player = Minecraft.getInstance().player;
 		if (player == null) return;
 		if (player.isCreative()) return;
 

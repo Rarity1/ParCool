@@ -51,6 +51,8 @@ public class Roll extends Action {
 		return StaminaConsumeTiming.OnStart;
 	}
 
+
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public boolean canStart(Player player, Parkourability parkourability, ByteBuffer startInfo) {
 		LocalPlayer clientPlayer = (LocalPlayer) player;

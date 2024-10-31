@@ -12,6 +12,9 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
@@ -59,9 +62,9 @@ public record ActionStatePayload(UUID playerID, List<Entry> states) implements C
 
     public static void handleClient(ActionStatePayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
-            Player player;
-            player = context.player();
-            if (player == null) return;
+
+            Player player = context.player();
+            if (player == null || player.isLocalPlayer()) return;
 
             Parkourability parkourability = Parkourability.get(player);
             if (parkourability == null) return;
@@ -91,9 +94,7 @@ public record ActionStatePayload(UUID playerID, List<Entry> states) implements C
 
     public static void handleServer(ActionStatePayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
-            Player player;
-
-            player = context.player();
+            Player player = context.player();
             PacketDistributor.sendToAllPlayers(payload);
 
             Parkourability parkourability = Parkourability.get(player);

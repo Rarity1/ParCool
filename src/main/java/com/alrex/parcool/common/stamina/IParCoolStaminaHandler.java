@@ -2,8 +2,6 @@ package com.alrex.parcool.common.stamina;
 
 import com.alrex.parcool.common.attachment.stamina.ReadonlyStamina;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public interface IParCoolStaminaHandler {
     public ReadonlyStamina initializeStamina(Player player, ReadonlyStamina current);

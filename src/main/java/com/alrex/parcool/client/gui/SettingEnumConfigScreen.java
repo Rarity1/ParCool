@@ -15,7 +15,9 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.List;
-
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+@OnlyIn(Dist.CLIENT)
 public class SettingEnumConfigScreen extends ParCoolSettingScreen {
     private final EnumConfigSet<?>[] enumConfigList = new EnumConfigSet[]{
             new EnumConfigSet<>(ParCoolConfig.Client.AlignHorizontalStaminaHUD),
@@ -95,7 +97,7 @@ public class SettingEnumConfigScreen extends ParCoolSettingScreen {
 
     @Override
     protected void save() {
-        Player player = Minecraft.getInstance().player;
+        LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) return;
         Parkourability parkourability = Parkourability.get(player);
         if (parkourability == null) return;

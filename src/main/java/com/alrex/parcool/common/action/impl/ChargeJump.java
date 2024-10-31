@@ -13,6 +13,8 @@ import com.alrex.parcool.utilities.VectorUtil;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
 
 import java.nio.ByteBuffer;
 
@@ -61,6 +63,8 @@ public class ChargeJump extends Action {
         }
     }
 
+
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void onClientTick(Player player, Parkourability parkourability) {
         if (player instanceof LocalPlayer cp) {
@@ -114,6 +118,7 @@ public class ChargeJump extends Action {
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void onLand(Player player, Parkourability parkourability) {
         if (player.isLocalPlayer() && player instanceof LocalPlayer cp) {
             if (

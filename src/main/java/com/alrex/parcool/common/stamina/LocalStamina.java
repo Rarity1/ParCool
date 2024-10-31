@@ -2,29 +2,21 @@ package com.alrex.parcool.common.stamina;
 
 import com.alrex.parcool.common.attachment.Attachments;
 import com.alrex.parcool.common.stamina.handlers.InfiniteStaminaHandler;
+
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 
 import javax.annotation.Nullable;
 
-@EventBusSubscriber(value = Dist.CLIENT, modid = "parcool")
 public class LocalStamina {
     
     @Nullable
     private static LocalStamina instance = null;
-    
-    @SubscribeEvent
-    public static void onLocalPlayerLogout(ClientPlayerNetworkEvent.LoggingOut event) {
-        instance = null;
-    }
 
-    @SubscribeEvent
-    public static void onLocalPlayerLogin(ClientPlayerNetworkEvent.LoggingIn event) {
-        instance = new LocalStamina(event.getPlayer());
+    public static void setup(Player player){
+        instance = new LocalStamina(player);
+    }
+    public static void unload(){
+        instance = null;
     }
 
     public static LocalStamina get(){

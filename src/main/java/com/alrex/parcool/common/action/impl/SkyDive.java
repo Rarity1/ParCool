@@ -5,7 +5,6 @@ import com.alrex.parcool.common.action.Action;
 import com.alrex.parcool.common.action.Parkourability;
 import com.alrex.parcool.common.action.StaminaConsumeTiming;
 import com.alrex.parcool.utilities.VectorUtil;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.client.event.RenderFrameEvent;
@@ -27,13 +26,13 @@ public class SkyDive extends Action {
 
 	@Override
     public void onWorkingTickInLocalClient(Player player, Parkourability parkourability) {
-        if (!(player instanceof LocalPlayer clientPlayer)) {
+        if (!(player.isLocalPlayer())) {
 			return;
 		}
 		Vec3 forwardVec = VectorUtil.fromYawDegree(player.yHeadRot);
-		Vec3 leftVec = forwardVec.yRot((float) Math.PI / 2).scale(clientPlayer.input.leftImpulse * 0.0);
-		forwardVec = forwardVec.scale(clientPlayer.input.forwardImpulse * 0.03);
-		clientPlayer.setDeltaMovement(clientPlayer.getDeltaMovement()
+		Vec3 leftVec = forwardVec.yRot((float) Math.PI / 2).scale(0);
+		forwardVec = forwardVec.scale(0);
+		player.setDeltaMovement(player.getDeltaMovement()
 				.multiply(1, 0.98, 1).add(
 						forwardVec.add(leftVec)
 				));

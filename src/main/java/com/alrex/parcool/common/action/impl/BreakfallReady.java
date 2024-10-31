@@ -9,10 +9,11 @@ import com.alrex.parcool.common.action.Parkourability;
 import com.alrex.parcool.common.attachment.Attachments;
 import com.alrex.parcool.common.stamina.LocalStamina;
 import com.alrex.parcool.config.ParCoolConfig;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import java.nio.ByteBuffer;
 
@@ -55,11 +56,13 @@ public class BreakfallReady extends Action {
 		}
 	}
 
+	@OnlyIn(Dist.CLIENT)
 	@Override
     public boolean canStart(Player player, Parkourability parkourability, ByteBuffer startInfo) {
         return canContinue(player, parkourability);
 	}
 
+	@OnlyIn(Dist.CLIENT)
 	@Override
     public boolean canContinue(Player player, Parkourability parkourability) {
 		return (KeyBindings.getKeyBreakfall().isDown()

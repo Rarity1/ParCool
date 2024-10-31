@@ -28,7 +28,7 @@ public class StaminaHUDController implements LayeredDraw.Layer {
 	}
 
 	public void onTick(ClientTickEvent.Post event) {
-		Player player = Minecraft.getInstance().player;
+		LocalPlayer player = Minecraft.getInstance().player;
 		if (player == null || player.isCreative()) return;
 		lightStaminaHUD.onTick(event, player);
 		staminaHUD.onTick(event, player);

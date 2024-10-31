@@ -10,6 +10,8 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import javax.annotation.Nonnull;
@@ -29,6 +31,7 @@ public record StartBreakfallEventPayload(boolean justTimed) implements CustomPac
         return TYPE;
     }
 
+
     public static void handleClient(StartBreakfallEventPayload payload, IPayloadContext context) {
         context.enqueueWork(() -> {
             Player player = context.player();
@@ -42,14 +45,14 @@ public record StartBreakfallEventPayload(boolean justTimed) implements CustomPac
     }
 
     public static void handleServer(StartBreakfallEventPayload payload, IPayloadContext context) {
-        context.enqueueWork(() -> {
+        /*context.enqueueWork(() -> {
             Player player = context.player();
-            if (player == null) return;
+            if (player == null || player.isLocalPlayer()) return;
 
             Parkourability parkourability = Parkourability.get(player);
             if (parkourability == null) return;
 
             parkourability.get(BreakfallReady.class).startBreakfall(player, parkourability, payload.justTimed());
-        });
+        });*/
     }
 }

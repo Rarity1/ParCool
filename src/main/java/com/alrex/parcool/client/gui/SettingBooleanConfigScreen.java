@@ -14,7 +14,9 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Collections;
-
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+@OnlyIn(Dist.CLIENT)
 public class SettingBooleanConfigScreen extends ParCoolSettingScreen {
     private final ParCoolConfig.Client.Booleans[] booleans = ParCoolConfig.Client.Booleans.values();
     private final Checkbox[] configButtons = new Checkbox[booleans.length];
@@ -86,7 +88,7 @@ public class SettingBooleanConfigScreen extends ParCoolSettingScreen {
         for (int i = 0; i < booleans.length; i++) {
             booleans[i].set(configButtons[i].selected());
         }
-        Player player = Minecraft.getInstance().player;
+        LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) return;
         Parkourability parkourability = Parkourability.get(player);
         if (parkourability == null) return;

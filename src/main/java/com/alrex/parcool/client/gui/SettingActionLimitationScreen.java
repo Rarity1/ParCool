@@ -18,7 +18,9 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import java.util.Collections;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
-
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+@OnlyIn(Dist.CLIENT)
 public class SettingActionLimitationScreen extends ParCoolSettingScreen {
     private final ActionConfigSet[] actionList = new ActionConfigSet[Actions.LIST.size()];
     private final Checkbox[] actionButtons = new Checkbox[actionList.length];
@@ -102,7 +104,7 @@ public class SettingActionLimitationScreen extends ParCoolSettingScreen {
         for (int i = 0; i < actionList.length; i++) {
             actionList[i].setter.accept(actionButtons[i].selected());
         }
-        Player player = Minecraft.getInstance().player;
+        LocalPlayer player = Minecraft.getInstance().player;
         if (player == null) return;
         Parkourability parkourability = Parkourability.get(player);
         if (parkourability == null) return;

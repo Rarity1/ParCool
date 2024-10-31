@@ -36,10 +36,8 @@ public abstract class Action {
 		doing = value;
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	public abstract boolean canStart(Player player, Parkourability parkourability, ByteBuffer startInfo);
 
-	@OnlyIn(Dist.CLIENT)
 	public abstract boolean canContinue(Player player, Parkourability parkourability);
 
 	public void onStart(Player player, Parkourability parkourability) {
@@ -48,11 +46,9 @@ public abstract class Action {
 	public void onStartInServer(Player player, Parkourability parkourability, ByteBuffer startData) {
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	public void onStartInOtherClient(Player player, Parkourability parkourability, ByteBuffer startData) {
 	}
 
-	@OnlyIn(Dist.CLIENT)
 	public void onStartInLocalClient(Player player, Parkourability parkourability, ByteBuffer startData) {
 	}
 
